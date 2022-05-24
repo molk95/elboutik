@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <a href="/">élboutik</a>
+        <a href="/">élBoutik</a>
       </header>
       <main>List des produits</main>
     </div>
