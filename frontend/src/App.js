@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <Link to="/">amazona</Link>
+        <Link to="/">élBoutika</Link>
       </header>
       <main>
         <Routes>

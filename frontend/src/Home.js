@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import data from './data';
 const Home = () => {
+  // const [products, setProducts] = useState([])
   return (
     <div>
       <h1>Produits populaires</h1>
