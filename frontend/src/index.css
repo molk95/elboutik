@@ -44,3 +44,11 @@ main {
 .rating span {
   color: #ffc000;
 }
+
+.img-large {
+  max-width: 100%;
+}
+.primary-color {
+  background-color: #1c3b55;
+  color: #cfdae9;
+}

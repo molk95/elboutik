@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import Product from './Components/Product';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="d-flex flex-column site-container">
       <header>
-        <Navbar bg="danger" variant="dark">
+        <Navbar className='primary-color' variant="dark">
           <Container>
             <LinkContainer to="/">
               <Navbar.Brand>élBoutika</Navbar.Brand>
@@ -18,7 +18,7 @@ function App() {
         </Navbar>
       </header>
       <main>
-        <Container>
+        <Container className='mt-3'>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:slug" element={<Product />} />

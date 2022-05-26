@@ -39,7 +39,7 @@ const data = {
       category: 'Sacs à main',
       image: '/images/img4.jpg',
       price: 64,
-      countInStock: 3,
+      countInStock: 0,
       rating: 4.7,
       numReviews: 19,
       description: "Style sac seau avec beaucoup d'espace",
