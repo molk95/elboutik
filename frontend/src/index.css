@@ -52,3 +52,7 @@ main {
   background-color: #1c3b55;
   color: #cfdae9;
 }
+
+.img-thumbnail {
+  height: 80px;
+}
