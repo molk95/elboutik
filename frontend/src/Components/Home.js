@@ -4,6 +4,8 @@ import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ProductList from '../Components/ProductList';
+import Loading from './Loading';
+import ErrorMessege from './ErrorMessege';
 // import data from './data';
 const reducer = (state, action) => {
   switch (action.type) {
@@ -43,9 +45,9 @@ const Home = () => {
       <h1>Produits populaires</h1>
       <div className="products">
         {loading ? (
-          <div>Loading...</div>
+          <Loading/>
         ) : error ? (
-          <div> {error} </div>
+          <ErrorMessege variant='danger'> {error} </ErrorMessege>
         ) : (
           <Row>
             {products.map((product) => (
