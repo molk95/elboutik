@@ -1,6 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import Home from './Home';
-import Product from './Product';
+import Home from './Components/Home';
+import Product from './Components/Product';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';

@@ -22,6 +22,7 @@ header a {
 main {
   flex: 1;
 }
+
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -38,4 +39,8 @@ main {
 }
 .product-info {
   padding: 1rem;
+}
+
+.rating span {
+  color: #ffc000;
 }
