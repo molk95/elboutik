@@ -20,7 +20,7 @@ const ProductList = ({ product }) => {
           <Card.Text>
             <strong>{product.price} DT</strong>{' '}
           </Card.Text>
-          <Button variant="outline-dark">Ajouter au panier</Button>
+          <Button  variant="outline-dark">Ajouter au panier</Button>
         </Card.Body>
       </Card>
     </div>

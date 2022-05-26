@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,6 +11,7 @@ import Rating from './Rating';
 import Loading from './Loading';
 import ErrorMessege from './ErrorMessege';
 import { getError } from '../utils/utils';
+import {Store} from '../Store'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,11 +46,20 @@ const Product = () => {
     };
     fetchData();
   }, [slug]);
+
+  const { state, dispatch: ctxDispach } = useContext(Store);
+  const addToCartHandler = () => {
+    ctxDispach({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 },
+    });
+  };
+
   return loading ? (
-    <Loading/>
+    <Loading />
   ) : error ? (
-    <ErrorMessege variant='danger'> {error} </ErrorMessege>
-  ): (
+    <ErrorMessege variant="danger"> {error} </ErrorMessege>
+  ) : (
     <div>
       <Row>
         <Col md={6}>
@@ -94,12 +104,12 @@ const Product = () => {
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
-            
-                  <div className='d-grid'>
-                  <Button variant='outline-dark'>
-                  Ajouter au panier</Button>
+                  <div className="d-grid">
+                    <Button onClick={addToCartHandler} variant="outline-dark">
+                      Ajouter au panier
+                    </Button>
                   </div>
-              </ListGroup.Item>
+                </ListGroup.Item>
               </ListGroup>
             </Card.Body>
           </Card>
