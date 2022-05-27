@@ -18,10 +18,10 @@ const Signin = () => {
           <Form.Control type="password" required />
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Sign in</Button>
+          <Button variant='outline-dark' type="submit">Sign in</Button>
         </div>
         <div className="mb-3">
-          Nouveau chez élboutik{' '}
+         <span>Nouveau chez élboutik ?</span> {' '}
           <Link to={`/signup?redirect=${redirect}`}>Créez votre compte</Link>
         </div>
       </Form>
