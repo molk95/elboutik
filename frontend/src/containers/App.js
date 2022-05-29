@@ -13,6 +13,7 @@ import { Store } from '../Store';
 import Cart from '../Components/Cart';
 import Signin from '../Components/auth/Signin';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import ShippingAddress from '../Components/ShippingAddress';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -20,6 +21,7 @@ function App() {
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
   };
   return (
     <div className="d-flex flex-column site-container">
@@ -74,6 +76,7 @@ function App() {
             <Route path="/product/:slug" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/shipping" element={<ShippingAddress />} />
           </Routes>
         </Container>
       </main>

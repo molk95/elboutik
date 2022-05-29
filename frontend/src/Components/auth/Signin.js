@@ -6,6 +6,7 @@ import { Link,  useLocation, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Store } from '../../Store';
 import { toast } from 'react-toastify';
+import { getError } from '../../utils/utils';
 
 
 const Signin = () => {
@@ -31,7 +32,7 @@ const Signin = () => {
       navigate(redirect || '/')
       console.log(data);
     } catch (err) {
-      toast.error('Votre email ou mot de passe est invalide')
+      toast.error(getError(err))
    
     }
   };
@@ -43,7 +44,7 @@ const Signin = () => {
   },[navigate,redirect,userInfo])
   return (
     <Container className="small-container">
-      <h1 className="mt-3">Sign In</h1>
+      <h1 className="my-3">Sign In</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
