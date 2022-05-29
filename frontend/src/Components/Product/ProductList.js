@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import Rating from './Rating';
-import { Store } from '../Store';
+import Rating from '../Rating';
+import { Store } from '../../Store.js';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const ProductList = ({ product }) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
@@ -16,7 +17,7 @@ const ProductList = ({ product }) => {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Le produit est en rupture de stock');
+      toast.error('Le produit est en rupture de stock');
       return;
     }
 

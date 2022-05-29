@@ -7,11 +7,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
-import Rating from './Rating';
-import Loading from './Loading';
-import ErrorMessege from './ErrorMessege';
-import { getError } from '../utils/utils';
-import { Store } from '../Store';
+import Rating from '../Rating';
+import Loading from '../Loading';
+import ErrorMessege from '../ErrorMessege';
+import { getError } from '../../utils/utils';
+import { Store } from '../../Store.js';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -55,7 +56,7 @@ const Product = () => {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Le produit est en rupture de stock');
+      toast.error('Le produit est en rupture de stock');
       return;
     }
 
