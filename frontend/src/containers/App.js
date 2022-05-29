@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { Store } from '../Store';
 import Cart from '../Components/Cart';
 import Signin from '../Components/auth/Signin';
+import Signup from '../Components/auth/Signup';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ShippingAddress from '../Components/ShippingAddress';
 
@@ -62,7 +63,7 @@ function App() {
                 </NavDropdown>
               ) : (
                 <Link className="nav-link" to="/signin">
-                  Sign In
+                Bonjour, Identifiez-vous
                 </Link>
               )}
             </Nav>
@@ -76,6 +77,7 @@ function App() {
             <Route path="/product/:slug" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/shipping" element={<ShippingAddress />} />
           </Routes>
         </Container>

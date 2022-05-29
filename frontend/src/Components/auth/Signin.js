@@ -44,16 +44,18 @@ const Signin = () => {
   },[navigate,redirect,userInfo])
   return (
     <Container className="small-container">
-      <h1 className="my-3">Sign In</h1>
+      <h1 className="my-3">S'identifier </h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Adresse e-mail</Form.Label>
           <Form.Control
             type="email"
             required
             onChange={(event) => setEmail(event.target.value)}
           />
-          <Form.Label>Password</Form.Label>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Mot de passe</Form.Label>
           <Form.Control
             type="password"
             required
@@ -62,7 +64,7 @@ const Signin = () => {
         </Form.Group>
         <div className="mb-3">
           <Button variant="outline-dark" type="submit">
-            Sign in
+          Continuer
           </Button>
         </div>
         <div className="mb-3">

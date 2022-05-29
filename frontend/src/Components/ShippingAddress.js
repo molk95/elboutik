@@ -91,7 +91,7 @@ const ShippingAddress = () => {
           </Form.Group>
           <div className="mb-3">
             <Button variant="outline-dark" type="submit">
-              Suivant
+            Continuer
             </Button>
           </div>
         </Form>
