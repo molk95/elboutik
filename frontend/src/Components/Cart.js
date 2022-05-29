@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Store } from '../Store';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import ErrorMessage from './ErrorMessege';
+import ErrorMessage from './layout/ErrorMessege';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';

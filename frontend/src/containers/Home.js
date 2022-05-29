@@ -4,8 +4,8 @@ import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import ProductList from '../Components/Product/ProductList.js';
-import Loading from '../Components/Loading';
-import ErrorMessege from '../Components/ErrorMessege';
+import Loading from '../Components/layout/Loading';
+import ErrorMessege from '../Components/layout/ErrorMessege';
 // import data from './data';
 const reducer = (state, action) => {
   switch (action.type) {

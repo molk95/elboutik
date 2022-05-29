@@ -15,6 +15,7 @@ import Signin from '../Components/auth/Signin';
 import Signup from '../Components/auth/Signup';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ShippingAddress from '../Components/ShippingAddress';
+import PaymentMethod from '../Components/PaymentMethod';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -23,10 +24,11 @@ function App() {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
+    localStorage.removeItem('paymentMethod');
   };
   return (
     <div className="d-flex flex-column site-container">
-    <ToastContainer position="bottom-center" limit={1} />
+      <ToastContainer position="bottom-center" limit={1} />
       <header>
         <Navbar className="primary-color" variant="dark">
           <Container>
@@ -63,7 +65,7 @@ function App() {
                 </NavDropdown>
               ) : (
                 <Link className="nav-link" to="/signin">
-                Bonjour, Identifiez-vous
+                  Bonjour, Identifiez-vous
                 </Link>
               )}
             </Nav>
@@ -79,6 +81,7 @@ function App() {
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/shipping" element={<ShippingAddress />} />
+            <Route path="/payment" element={<PaymentMethod />} />
           </Routes>
         </Container>
       </main>

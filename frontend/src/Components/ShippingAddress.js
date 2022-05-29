@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import { Store } from '../Store';
 import { useNavigate } from 'react-router-dom';
 import CheckoutSteps from './CheckoutSteps';
+import { toast } from 'react-toastify';
+import { getError } from '../utils/utils';
 
 const ShippingAddress = () => {
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const ShippingAddress = () => {
     navigate('/payment');
     try {
     } catch (err) {
-      // toast.error(getError(err))
+      toast.error(getError(err))
     }
   };
   useEffect(() => {
