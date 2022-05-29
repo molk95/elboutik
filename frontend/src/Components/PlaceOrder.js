@@ -35,6 +35,43 @@ const PlaceOrder = () => {
                 <Link to="/shipping">Modifier</Link>
               </Card.Body>
             </Card>
+            <Card className="mb-3">
+              <Card.Body>
+                <Card.Title>Livraison</Card.Title>
+                <Card.Text>
+                  <strong>Méthode</strong> {cart.paymentMethod}
+                </Card.Text>
+
+                <Link to="/payment">Modifier</Link>
+              </Card.Body>
+            </Card>
+            <Card className="mb-3">
+            <Card.Body>
+              <Card.Title>Article</Card.Title>
+              <ListGroup vriant="flush" >
+               {cart.cartItems.map((item)=>(
+                <ListGroup.Item key={item._id}>
+                <Row>
+                 <Col md={6}>
+                 <img scr={item.image} alt={item.name}
+                 className="img-fluid rouneded img-thumbnail" />
+                 </Col>
+                 <Col md={3} >
+                  <span >
+                   {item.quantity}
+                  </span>
+                 </Col>
+                 <Col md={3} >
+                   {item.price}
+                 </Col>
+                </Row>
+                </ListGroup.Item>
+               ))}
+              </ListGroup>
+
+              <Link to="/payment">Modifier</Link>
+            </Card.Body>
+          </Card>
           </Col>
         </Row>
       </div>

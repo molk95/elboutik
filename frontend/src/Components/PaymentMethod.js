@@ -10,24 +10,24 @@ const PaymentMethod = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     userInfo,
-    cart: { shippingAddress,paymentMethod },
+    cart: { shippingAddress, paymentMethod },
   } = state;
-  useEffect(()=>{
-      if(!shippingAddress.address){
-          navigate('/shipping')
-      }
-  },[shippingAddress, navigate])
+  useEffect(() => {
+    if (!shippingAddress.address) {
+      navigate('/shipping');
+    }
+  }, [shippingAddress, navigate]);
   const [paymentMethodName, setPaymentMethod] = useState(
-      paymentMethod || 'PayPal'
-  )
+    paymentMethod || 'PayPal'
+  );
   const submitHandler = (event) => {
     event.preventDefault();
     ctxDispatch({
-        type : 'SAVE_PAYMENT_METHOD',payload: paymentMethodName
-        
-    })
-    localStorage.setItem('paymentMethod', paymentMethodName)
-    navigate('/placeorder')
+      type: 'SAVE_PAYMENT_METHOD',
+      payload: paymentMethodName,
+    });
+    localStorage.setItem('paymentMethod', paymentMethodName);
+    navigate('/placeorder');
   };
   return (
     <div>
@@ -36,28 +36,40 @@ const PaymentMethod = () => {
         <h1 className="my-3">Mode de paiement</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3">
-          <Form.Check type='radio'
-          id='PayPal'
-          label='PayPal' value="PayPal" checked={paymentMethodName === 'PayPal'}
-          onChange={(event)=> setPaymentMethod(event.target.value)} />
+            <Form.Check
+              type="radio"
+              id="PayPal"
+              label="PayPal"
+              value="PayPal"
+              checked={paymentMethodName === 'PayPal'}
+              onChange={(event) => setPaymentMethod(event.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
-          <Form.Check type='radio'
-          id='Stripe'
-          label='Stripe' value="Stripe" checked={paymentMethodName === 'Stripe'} 
-          onChange={(event)=> setPaymentMethod(event.target.value)} />
+            <Form.Check
+              type="radio"
+              id="Stripe"
+              label="Stripe"
+              value="Stripe"
+              checked={paymentMethodName === 'Stripe'}
+              onChange={(event) => setPaymentMethod(event.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
-          <Form.Check type='radio'
-          id='Enespèces'
-          label='En espèces' value="Enespèces" checked={paymentMethodName === 'Enespèces'} 
-          onChange={(event)=> setPaymentMethod(event.target.value)} />
+            <Form.Check
+              type="radio"
+              id="Enespèces"
+              label="En espèces"
+              value="Enespèces"
+              checked={paymentMethodName === 'Enespèces'}
+              onChange={(event) => setPaymentMethod(event.target.value)}
+            />
           </Form.Group>
           <div className="my-3">
             <Button variant="outline-dark" type="submit">
-            Continuer
+              Continuer
             </Button>
-            </div>
+          </div>
         </Form>
       </div>
     </div>
