@@ -1,7 +1,7 @@
 const data = {
   products: [
     {
-      _id: '1',
+      // _id: '1',
       name: 'Bols Feed Me Kitty avec couvercles',
       slug: 'bols-feed-me-kitty-avec-couvercles',
       category: 'Articles de maison',
@@ -13,7 +13,7 @@ const data = {
       description: 'En porcelaine avec couvercles assortis',
     },
     {
-      _id: '2',
+      // _id: '2',
       name: 'Ensemble de sous-verres My Purr-fect',
       slug: 'ensemble-de-sous-verres-my-purr-fect',
       category: 'Articles de maison',
@@ -25,7 +25,7 @@ const data = {
       description: 'Laissez les adorables chatons vous saluer dès le matin',
     },
     {
-      _id: '3',
+      // _id: '3',
       name: 'Pawsitively Tasse en Céramique Patte de Chat 250ML',
       slug: 'pawsitively-tasse-en-céramique-patte-de-chat-250ML',
       category: 'Articles de maison',
@@ -37,7 +37,7 @@ const data = {
       description: 'Cadeau parfait pour les amoureux des chats',
     },
     {
-      _id: '4',
+      // _id: '4',
       name: 'Cat & Rose Bucket Bag',
       slug: 'cat-&-rose-bucket-bags',
       category: 'Sacs à main',
