@@ -2,31 +2,28 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-
-import { generateToken } from '../utils/utils';
+import { generateToken } from '../utils/utils.js';
 
 const userRouter = express.Router();
 
 userRouter.post(
   '/signin',
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email }); //get user by email
+    const user = await User.findOne({ email: req.body.email });
     if (user) {
-      //if user exisit
-      if (bcrypt.compareSync(req.body.password, user.password)) // check password
-      {
-        
+      if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
           _id: user._id,
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
-          token: generateToken(user)
+          token: generateToken(user),
         });
         return;
       }
     }
-    res.status(401).send({message: 'Email ou Mot de Passe invalide!'})
+    res.status(401).send({ message: 'email ou mot de passe invalide' });
   })
 );
-export default userRouter
+
+export default userRouter;
