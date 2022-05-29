@@ -1,2 +1,2 @@
 # elBoutik
-Ecommerce Web Application by MERN
+Ecommerce Web Application inspired by amazon
