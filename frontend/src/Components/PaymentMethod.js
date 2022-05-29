@@ -27,7 +27,7 @@ const PaymentMethod = () => {
         
     })
     localStorage.setItem('paymentMethod', paymentMethodName)
-    navigate('/placeholder')
+    navigate('/placeorder')
   };
   return (
     <div>
@@ -41,10 +41,16 @@ const PaymentMethod = () => {
           label='PayPal' value="PayPal" checked={paymentMethodName === 'PayPal'}
           onChange={(event)=> setPaymentMethod(event.target.value)} />
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="mb-3">
           <Form.Check type='radio'
           id='Stripe'
           label='Stripe' value="Stripe" checked={paymentMethodName === 'Stripe'} 
+          onChange={(event)=> setPaymentMethod(event.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3">
+          <Form.Check type='radio'
+          id='Enespèces'
+          label='En espèces' value="Enespèces" checked={paymentMethodName === 'Enespèces'} 
           onChange={(event)=> setPaymentMethod(event.target.value)} />
           </Form.Group>
           <div className="my-3">

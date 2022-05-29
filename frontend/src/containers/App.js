@@ -16,6 +16,7 @@ import Signup from '../Components/auth/Signup';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import ShippingAddress from '../Components/ShippingAddress';
 import PaymentMethod from '../Components/PaymentMethod';
+import PlaceOrder from '../Components/PlaceOrder';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -82,6 +83,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
           </Routes>
         </Container>
       </main>
