@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import axios  from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Store } from '../../Store';
@@ -38,25 +38,18 @@ const Order = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        dispatch({
-          type: 'FETCH_REQUEST',
+        dispatch({ type: 'FETCH_REQUEST' });
+        const { data } = await axios.get(`/api/orders/${orderId}`, {
+          headers: { authorization: `Bearer ${userInfo.token}` },
         });
-        const { data } = await Axios.get(`/api/orders/${orderId}`, {
-          headers: { authorizations: `Bearer ${userInfo.token}` },
-        });
-        dispatch({
-          type: 'FETCH_SUCCESS',
-          payload: data,
-        });
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
-        dispatch({
-          type: 'FETCH_FAIL',
-          payload: getError(err),
-        });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
+
     if (!userInfo) {
-      navigate('/login');
+      return navigate('/login');
     }
     if (!order._id || (order._id && order._id !== orderId)) {
       fetchOrder();

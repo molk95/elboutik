@@ -10,7 +10,7 @@ const PaymentMethod = () => {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
-    userInfo,
+  
     cart: { shippingAddress, paymentMethod },
   } = state;
   useEffect(() => {
