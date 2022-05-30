@@ -10,7 +10,8 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const reducer = (state, action) => {
+
+function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true, error: '' };
@@ -18,22 +19,24 @@ const reducer = (state, action) => {
       return { ...state, loading: false, order: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
-};
+}
+const  Order =() =>{
+  const { state } = useContext(Store);
+  const { userInfo } = state;
 
-const Order = () => {
+  const params = useParams();
+  const { id: orderId } = params;
+  const navigate = useNavigate();
+
   const [{ loading, error, order }, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
     error: '',
   });
-  const { state } = useContext(Store);
-  const { userInfo } = state;
-  const params = useParams();
-  const { id: orderId } = params;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -55,51 +58,53 @@ const Order = () => {
       fetchOrder();
     }
   }, [order, userInfo, orderId, navigate]);
-
   return loading ? (
-    <Loading />
+    <Loading></Loading>
   ) : error ? (
     <ErrorMessege variant="danger">{error}</ErrorMessege>
   ) : (
     <div>
-      <h1 className="my-3">commander</h1>
+ 
+      <h1 className="my-3">Order {orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Livraison</Card.Title>
+              <Card.Title>Shipping</Card.Title>
               <Card.Text>
-                <strong>Name :</strong> {order.shippingAddress.fullNames} <br />
-                <strong>Adresse :</strong> {order.shippingAddress.addess},
+                <strong>Name:</strong> {order.shippingAddress.fullName} <br />
+                <strong>Address: </strong> {order.shippingAddress.address},
                 {order.shippingAddress.city}, {order.shippingAddress.postalCode}
+                
               </Card.Text>
-              {order.isDelivred ? (
+              {order.isDelivered ? (
                 <ErrorMessege variant="success">
-                  Livré à {order.delivredAt}
+                  Delivered at {order.deliveredAt}
                 </ErrorMessege>
               ) : (
-                <ErrorMessege variant="danger">N'est pas livré</ErrorMessege>
+                <ErrorMessege variant="danger">Not Delivered</ErrorMessege>
               )}
             </Card.Body>
           </Card>
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Paiement</Card.Title>
+              <Card.Title>Payment</Card.Title>
               <Card.Text>
-                <strong>Méthode :</strong> {order.paymentMethod} <br />
+                <strong>Method:</strong> {order.paymentMethod}
               </Card.Text>
-              {order.isDelivred ? (
+              {order.isPaid ? (
                 <ErrorMessege variant="success">
-                  Payé à {order.paidAt}
+                  Paid at {order.paidAt}
                 </ErrorMessege>
               ) : (
-                <ErrorMessege variant="danger">N'est pas payé</ErrorMessege>
+                <ErrorMessege variant="danger">Not Paid</ErrorMessege>
               )}
             </Card.Body>
           </Card>
+
           <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Articles</Card.Title>
+              <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
                 {order.orderItems.map((item) => (
                   <ListGroup.Item key={item._id}>
@@ -108,14 +113,14 @@ const Order = () => {
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="imh-fluid rounded img-thumbnail"
-                        ></img>
-                        <Link to={`/product/${item.slug}`}> {item.name} </Link>
+                          className="img-fluid rounded img-thumbnail"
+                        ></img>{' '}
+                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
                       </Col>
                       <Col md={3}>
-                        <span> {item.quantity} </span>
+                        <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}> {item.price} DT </Col>
+                      <Col md={3}>${item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -124,26 +129,36 @@ const Order = () => {
           </Card>
         </Col>
         <Col md={4}>
-          <Card classNames="mb-3">
+          <Card className="mb-3">
             <Card.Body>
-              <Card.Title>Récapitulatif de la commande</Card.Title>
+              <Card.Title>Order Summary</Card.Title>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Articles</Col>
-                    <Col> {order.itemsPrice.toFixed(2)} DT</Col>
+                    <Col>Items</Col>
+                    <Col>${order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Livraison</Col>
-                    <Col> {order.shippingPrice.toFixed(2)} DT</Col>
+                    <Col>Shipping</Col>
+                    <Col>${order.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col> {order.taxPrice.toFixed(2)} DT</Col>
+                    <Col>${order.taxPrice.toFixed(2)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>
+                      <strong> Order Total</strong>
+                    </Col>
+                    <Col>
+                      <strong>${order.totalPrice.toFixed(2)}</strong>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
               </ListGroup>
@@ -153,6 +168,5 @@ const Order = () => {
       </Row>
     </div>
   );
-};
-
+}
 export default Order;
