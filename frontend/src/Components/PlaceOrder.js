@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import CheckoutSteps from './CheckoutSteps';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,15 +7,33 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
+import { getError } from '../utils/utils';
+import { toast } from 'react-toastify';
+import Axios from 'axios';
+import Loading from './layout/Loading';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
+  });
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo, cart } = state;
 
   const roundTwo = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
-
-
 
   cart.itemsPrice = roundTwo(
     cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
@@ -24,7 +42,34 @@ const PlaceOrder = () => {
   cart.taxPrice = roundTwo(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
   const placeOrderHandler = async () => {
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
 
+      const { data } = await Axios.post(
+        '/api/orders',
+        {
+          orderItems: cart.cartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          itemsPrice: cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        // authentication of the order
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token} `,
+          },
+        }
+      );
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCCESS' });
+      localStorage.removeItem('cartItems');
+      navigate(`/orders/${data.order._id}`);
+    } catch (err) {
+      toast.error(getError(err));
+    }
   };
 
   useEffect(() => {
@@ -32,6 +77,7 @@ const PlaceOrder = () => {
       navigate('/payment');
     }
   }, [cart, navigate]);
+
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -127,6 +173,7 @@ const PlaceOrder = () => {
                       Passer la commande
                     </Button>
                   </div>
+                  {loading && <Loading />}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>
