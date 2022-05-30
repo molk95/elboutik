@@ -10,14 +10,15 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Badge from 'react-bootstrap/esm/Badge';
 import { useContext } from 'react';
 import { Store } from '../Store';
-import Cart from '../Components/Cart';
+import Cart from '../Components/pages/Cart';
 import Signin from '../Components/auth/Signin';
 import Signup from '../Components/auth/Signup';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import ShippingAddress from '../Components/ShippingAddress';
-import PaymentMethod from '../Components/PaymentMethod';
-import PlaceOrder from '../Components/PlaceOrder';
-import Order from '../Components/Order';
+import ShippingAddress from '../Components/pages/ShippingAddress';
+import PaymentMethod from '../Components/pages/PaymentMethod';
+import PlaceOrder from '../Components/pages/PlaceOrder';
+import Order from '../Components/pages/Order';
+import OrderHistory from '../Components/pages/OrderHistory';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -86,6 +87,7 @@ function App() {
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path="/order/:id" element={<Order />} />
+            <Route path="/orderhistory" element={<OrderHistory />} />
           </Routes>
         </Container>
       </main>

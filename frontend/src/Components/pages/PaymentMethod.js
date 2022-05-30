@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CheckoutSteps from './CheckoutSteps';
+import CheckoutSteps from '../CheckoutSteps';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-import { Store } from '../Store';
+import { Store } from '../../Store';
 
 
 const PaymentMethod = () => {

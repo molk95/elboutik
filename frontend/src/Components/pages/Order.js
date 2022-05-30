@@ -1,10 +1,10 @@
 import { Axios } from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Store } from '../Store';
-import { getError } from '../utils/utils';
-import ErrorMessege from './layout/ErrorMessege';
-import Loading from './layout/Loading';
+import { Store } from '../../Store';
+import { getError } from '../../utils/utils';
+import ErrorMessege from '../layout/ErrorMessege';
+import Loading from '../layout/Loading';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';

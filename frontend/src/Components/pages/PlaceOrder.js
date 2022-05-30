@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import CheckoutSteps from './CheckoutSteps';
+import CheckoutSteps from '../CheckoutSteps';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link, useNavigate } from 'react-router-dom';
-import { Store } from '../Store';
-import { getError } from '../utils/utils';
+import { Store } from '../../Store';
+import { getError } from '../../utils/utils';
 import { toast } from 'react-toastify';
 import Axios from 'axios';
-import Loading from './layout/Loading';
+import Loading from '../layout/Loading';
 
 const reducer = (state, action) => {
   switch (action.type) {
