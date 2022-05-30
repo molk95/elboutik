@@ -1,4 +1,4 @@
-import express from 'express';t
+import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import {  isAuth } from '../utils/utils.js';
 import Order from '../models/orderModel.js';
@@ -14,7 +14,7 @@ orderRouter.post(
       paymentMethod: req.body.paymentMethod,
       itemsPrice: req.body.itemsPrice,
       shippingPrice: req.body.shippingPrice,
-      texPrice: req.body.texPrice,
+      taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
       user: req.user._id,
     });
