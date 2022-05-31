@@ -19,6 +19,7 @@ import PaymentMethod from '../Components/pages/PaymentMethod';
 import PlaceOrder from '../Components/pages/PlaceOrder';
 import Order from '../Components/pages/Order';
 import OrderHistory from '../Components/pages/OrderHistory';
+import Profile from '../Components/pages/Profile';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -28,50 +29,54 @@ function App() {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('paymentMethod');
+    window.location.href = '/signin';
   };
   return (
     <div className="d-flex flex-column site-container">
       <ToastContainer position="bottom-center" limit={1} />
       <header>
-        <Navbar className="primary-color" variant="dark">
+        <Navbar className="primary-color" variant="dark" expand="lg">
           <Container>
             <LinkContainer to="/">
               <Navbar.Brand>élBoutika</Navbar.Brand>
             </LinkContainer>
-            <Nav className="me-auto">
-              <Link to="/cart" className="nav-link">
-                <i class="fa-solid fa-cart-shopping"></i>
-                {cart.cartItems.length > 0 && (
-                  <Badge pill bg="danger">
-                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                  </Badge>
-                )}
-              </Link>
-              {userInfo ? (
-                <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-                  <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profil</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/orderhistory">
-                    <NavDropdown.Item>
-                      Historique des commandes
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Divider />
-                  <Link
-                    className="dropdown-item"
-                    to="#signout"
-                    onClick={signoutHandler}
-                  >
-                    Sign Out
-                  </Link>
-                </NavDropdown>
-              ) : (
-                <Link className="nav-link" to="/signin">
-                  Bonjour, Identifiez-vous
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />{' '}
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto w-100 justify-content-end">
+                <Link to="/cart" className="nav-link">
+                  <i class="fa-solid fa-cart-shopping"></i>
+                  {cart.cartItems.length > 0 && (
+                    <Badge pill bg="danger">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Badge>
+                  )}
                 </Link>
-              )}
-            </Nav>
+                {userInfo ? (
+                  <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    <LinkContainer to="/profile">
+                      <NavDropdown.Item>Profil</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/orderhistory">
+                      <NavDropdown.Item>
+                        Historique des commandes
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Divider />
+                    <Link
+                      className="dropdown-item"
+                      to="#signout"
+                      onClick={signoutHandler}
+                    >
+                      Sign Out
+                    </Link>
+                  </NavDropdown>
+                ) : (
+                  <Link className="nav-link" to="/signin">
+                    Bonjour, Identifiez-vous
+                  </Link>
+                )}
+              </Nav>
+            </Navbar.Collapse>
           </Container>
         </Navbar>
       </header>
@@ -83,6 +88,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
