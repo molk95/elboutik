@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import App from './containers/App'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import StoreProvider from './Store';
@@ -12,7 +13,9 @@ root.render(
   <React.StrictMode>
     <StoreProvider>
       <BrowserRouter>
-        <App />
+        <PayPalScriptProvider deferLoading={true}>
+          <App />
+        </PayPalScriptProvider>
       </BrowserRouter>
     </StoreProvider>
   </React.StrictMode>

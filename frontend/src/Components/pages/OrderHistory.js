@@ -12,7 +12,7 @@ const reducer = (state, action) => {
     case 'FETCH_REQUEST':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
-      return { ...state, oerders: action.payload, loading: false };
+      return { ...state, orders: action.payload, loading: false };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
@@ -32,14 +32,14 @@ const OrderHistory = () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const { data } = await axios.get(`/api/orders/mine`, {
-          headers: { Authorization: `Bearer ${userInfo.token} ` },
+          headers: { authorization: `Bearer ${userInfo.token} ` },
         });
         dispatch({ type: 'FETCH_SUCCESS', pyaload: data });
-      } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', pyaload: getError(err) });
+      } catch (error) {
+        dispatch({ type: 'FETCH_FAIL', pyaload: getError(error) });
       }
     };
-    fetchData()
+    fetchData();
   }, [userInfo]);
 
   return (
@@ -48,49 +48,45 @@ const OrderHistory = () => {
       {loading ? (
         <Loading />
       ) : error ? (
-        <ErrorMessege variant="dander"> {error} </ErrorMessege>
+        <ErrorMessege variant="danger"> {error} </ErrorMessege>
       ) : (
         <table className="table">
           <thread>
             <tr>
+              <th>ID</th>
               <th>Date</th>
               <th>Total</th>
               <th>Payé</th>
               <th>Livré</th>
               <th>Actions</th>
             </tr>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td> {order.createdAt.substring(0, 10)} </td>
-                  <td> {order.totalPrice.toFixed(2)} </td>
-                  <td>
-                    {' '}
-                    {order.isPaied
-                      ? order.paiedAt.substring(0, 10)
-                      : ' Non'}{' '}
-                  </td>
-                  <td>
-                    {' '}
-                    {order.isDelivred
-                      ? order.delivredAt.substring(0, 10)
-                      : ' Non'}{' '}
-                  </td>
-                  <td>
-                    <Button
-                      type="button"
-                      variant="light"
-                      onClick={() => {
-                        navigate(`/order/${order.id}`);
-                      }}
-                    >
-                      Détails
-                    </Button>{' '}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
           </thread>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{order._id}</td>
+                <td>{order.createdAt.substring(0, 10)}</td>
+                <td>{order.totalPrice.toFixed(2)}</td>
+                <td>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</td>
+                <td>
+                  {order.isDelivered
+                    ? order.deliveredAt.substring(0, 10)
+                    : 'No'}
+                </td>
+                <td>
+                  <Button
+                    type="button"
+                    variant="light"
+                    onClick={() => {
+                      navigate(`/order/${order._id}`);
+                    }}
+                  >
+                    Details
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       )}
     </div>

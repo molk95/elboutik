@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Store } from '../../Store';
 import { getError } from '../../utils/utils';
 import { toast } from 'react-toastify';
-import Axios from 'axios';
+import axios from 'axios';
 import Loading from '../layout/Loading';
 
 const reducer = (state, action) => {
@@ -45,7 +45,7 @@ const PlaceOrder = () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
 
-      const { data } = await Axios.post(
+      const { data } = await axios.post(
         '/api/orders',
         {
           orderItems: cart.cartItems,
