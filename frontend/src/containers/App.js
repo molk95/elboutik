@@ -17,11 +17,13 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import ShippingAddress from '../Components/pages/ShippingAddress';
 import PaymentMethod from '../Components/pages/PaymentMethod';
 import PlaceOrder from '../Components/pages/PlaceOrder';
-import Order from '../Components/pages/Order';
+// import Order from '../Components/pages/Order';
+
 import OrderHistory from '../Components/pages/OrderHistory';
 import Profile from '../Components/pages/Profile';
 import SearchBox from '../Components/pages/SearchBox';
-import ProtectedComponent from '../Components/layout/ProtectedComponent';
+import OrderScreen from '../Components/pages/OrderScreen';
+// import ProtectedComponent from '../Components/layout/ProtectedComponent';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -95,7 +97,7 @@ function App() {
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />{' '}
             <Route path="/placeorder" element={<PlaceOrder />} />
-            <Route path="/order/:id" element={<Order />} />
+            <Route path="/order/:id" element={<OrderScreen />} />
             <Route path="/orderhistory" element={<OrderHistory />} />
           </Routes>
         </Container>
