@@ -77,7 +77,7 @@ const  Order =() =>{
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
-       
+        
         dispatch({ type: 'PAY_SUCCESS', payload: data });
         toast.success('Order is paid');
       } catch (err) {

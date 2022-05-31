@@ -21,6 +21,7 @@ import Order from '../Components/pages/Order';
 import OrderHistory from '../Components/pages/OrderHistory';
 import Profile from '../Components/pages/Profile';
 import SearchBox from '../Components/pages/SearchBox';
+import ProtectedComponent from '../Components/layout/ProtectedComponent';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -43,10 +44,10 @@ function App() {
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />{' '}
             <Navbar.Collapse id="basic-navbar-nav">
-            <SearchBox />
+              <SearchBox />
               <Nav className="me-auto w-100 justify-content-end">
                 <Link to="/cart" className="nav-link">
-                  <i class="fa-solid fa-cart-shopping"></i>
+                  <i className="fa-solid fa-cart-shopping"></i>
                   {cart.cartItems.length > 0 && (
                     <Badge pill bg="danger">
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -92,7 +93,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/shipping" element={<ShippingAddress />} />
-            <Route path="/payment" element={<PaymentMethod />} />
+            <Route path="/payment" element={<PaymentMethod />} />{' '}
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path="/order/:id" element={<Order />} />
             <Route path="/orderhistory" element={<OrderHistory />} />
