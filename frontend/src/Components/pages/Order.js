@@ -121,7 +121,7 @@ const  Order =() =>{
           type: 'resetOptions',
           value: {
             'client-id': clientId,
-            currency: 'USD',
+            currency: 'TND',
           },
         });
         paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
