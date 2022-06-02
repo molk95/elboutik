@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,7 @@ export default function ShippingAddressScreen() {
       navigate('/signin?redirect=/shipping');
     }
   }, [userInfo, navigate]);
-  const [country, setCountry] = useState(shippingAddress.country || '');
+ 
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -35,7 +34,7 @@ export default function ShippingAddressScreen() {
         address,
         city,
         postalCode,
-        country,
+       
         location: shippingAddress.location,
       },
     });
@@ -46,7 +45,7 @@ export default function ShippingAddressScreen() {
         address,
         city,
         postalCode,
-        country,
+        
         location: shippingAddress.location,
       })
     );
