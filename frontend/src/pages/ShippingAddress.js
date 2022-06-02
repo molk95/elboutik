@@ -97,33 +97,6 @@ export default function ShippingAddressScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="country">
-            <Form.Label>Pays</Form.Label>
-            <Form.Control
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <div className="mb-3">
-            <Button
-              id="chooseOnMap"
-              type="button"
-              variant="light"
-              onClick={() => navigate('/map')}
-            >
-            Choisissez l'emplacement sur Map
-            </Button>
-            {shippingAddress.location && shippingAddress.location.lat ? (
-              <div>
-                LAT: {shippingAddress.location.lat}
-                LNG:{shippingAddress.location.lng}
-              </div>
-            ) : (
-              <div>Aucun lieu</div>
-            )}
-          </div>
-
           <div className="mb-3">
             <Button variant="primary" type="submit">
             Continuer

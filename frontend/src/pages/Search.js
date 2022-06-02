@@ -36,15 +36,15 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $50',
+    name: '1DT to 50DT',
     value: '1-50',
   },
   {
-    name: '$51 to $200',
+    name: '51DT to 200DT',
     value: '51-200',
   },
   {
-    name: '$201 to $1000',
+    name: '201DT to 1000DT',
     value: '201-1000',
   },
 ];
@@ -139,7 +139,7 @@ export default function SearchScreen() {
                   className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
-                  Any
+                  Tout
                 </Link>
               </li>
               {categories.map((c) => (
@@ -178,7 +178,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Moy. Avis</h3>
+            <h3>Avis</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -211,15 +211,15 @@ export default function SearchScreen() {
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
                   <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
-                    {query !== 'all' && ' : ' + query}
-                    {category !== 'all' && ' : ' + category}
-                    {price !== 'all' && ' : Price ' + price}
-                    {rating !== 'all' && ' : Rating ' + rating + ' & up'}
-                    {query !== 'all' ||
-                    category !== 'all' ||
-                    rating !== 'all' ||
-                    price !== 'all' ? (
+                    {countProducts === 0 ? 'Non' : countProducts} Résultats
+                    {query !== 'tout' && ' : ' + query}
+                    {category !== 'tout' && ' : ' + category}
+                    {price !== 'tout' && ' : Prix ' + price}
+                    {rating !== 'tout' && ' : Notation ' + rating + ' & up'}
+                    {query !== 'tout' ||
+                    category !== 'tout' ||
+                    rating !== 'tout' ||
+                    price !== 'tout' ? (
                       <Button
                         variant="light"
                         onClick={() => navigate('/search')}
