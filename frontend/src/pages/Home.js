@@ -1,12 +1,14 @@
-import React, { useEffect,useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import ProductList from '../Components/Product/ProductList.js';
-import Loading from '../Components/layout/Loading';
-import ErrorMessege from '../Components/layout/ErrorMessege';
-// import data from './data';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Product from '../Components/Product';
+
+import LoadingBox from '../Components/layout/Loading';
+import MessageBox from '../Components/layout/MessageBox';
+// import data from '../data';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -19,8 +21,9 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const Home = () => {
-  const [{ loading, products, error }, dispatch] = useReducer(logger(reducer), {
+
+function HomeScreen() {
+  const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
     error: '',
@@ -30,7 +33,7 @@ const Home = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products`);
+        const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
@@ -42,17 +45,18 @@ const Home = () => {
   }, []);
   return (
     <div>
-      <h1>Produits populaires</h1>
+      
+      <h1>Featured Products</h1>
       <div className="products">
         {loading ? (
-          <Loading/>
+          <LoadingBox />
         ) : error ? (
-          <ErrorMessege variant='danger'> {error} </ErrorMessege>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (
-              <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
-                <ProductList product={product} />
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Product product={product}></Product>
               </Col>
             ))}
           </Row>
@@ -60,6 +64,5 @@ const Home = () => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}
+export default HomeScreen;

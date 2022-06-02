@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import Loading from '../layout/Loading';
-import ErrorMessege from '../layout/ErrorMessege';
-import { Store } from '../../Store';
-import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
-import { getError } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
+import LoadingBox from '../../Components/layout/Loading';
+import MessageBox from '../../Components/layout/MessageBox';
+import { Store } from '../../Store';
+import { getError } from '../../utils';
 import Button from 'react-bootstrap/esm/Button';
 
 const reducer = (state, action) => {
@@ -19,10 +20,12 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const OrderHistory = () => {
+
+export default function OrderHistoryScreen() {
   const { state } = useContext(Store);
   const { userInfo } = state;
   const navigate = useNavigate();
+
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -31,36 +34,42 @@ const OrderHistory = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data } = await axios.get(`/api/orders/mine`, {
-          headers: { authorization: `Bearer ${userInfo.token} ` },
-        });
-        dispatch({ type: 'FETCH_SUCCESS', pyaload: data });
+        const { data } = await axios.get(
+          `/api/orders/mine`,
+
+          { headers: { Authorization: `Bearer ${userInfo.token}` } }
+        );
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (error) {
-        dispatch({ type: 'FETCH_FAIL', pyaload: getError(error) });
+        dispatch({
+          type: 'FETCH_FAIL',
+          payload: getError(error),
+        });
       }
     };
     fetchData();
   }, [userInfo]);
-
   return (
     <div>
-      <h1> Historique des commandes</h1>
+
+
+      <h1>Order History</h1>
       {loading ? (
-        <Loading />
+        <LoadingBox></LoadingBox>
       ) : error ? (
-        <ErrorMessege variant="danger"> {error} </ErrorMessege>
+        <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <table className="table">
-          <thread>
+          <thead>
             <tr>
               <th>ID</th>
-              <th>Date</th>
-              <th>Total</th>
-              <th>Payé</th>
-              <th>Livré</th>
-              <th>Actions</th>
+              <th>DATE</th>
+              <th>TOTAL</th>
+              <th>PAID</th>
+              <th>DELIVERED</th>
+              <th>ACTIONS</th>
             </tr>
-          </thread>
+          </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order._id}>
@@ -91,6 +100,4 @@ const OrderHistory = () => {
       )}
     </div>
   );
-};
-
-export default OrderHistory;
+}

@@ -1,17 +1,19 @@
-import axios  from 'axios';
+import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Store } from '../../Store';
-import { getError } from '../../utils/utils';
-import ErrorMessege from '../layout/ErrorMessege';
-import Loading from '../layout/Loading';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+
+import { useNavigate, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
+import LoadingBox from '../../Components/layout/Loading';
+import MessageBox from '../../Components/layout/MessageBox';
+import { Store } from '../../Store';
+import { getError } from '../../utils';
 import { toast } from 'react-toastify';
-
 
 function reducer(state, action) {
   switch (action.type) {
@@ -21,19 +23,32 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: '' };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
-      case 'PAY_REQUEST':
-        return { ...state, loadingPay: true };
-      case 'PAY_SUCCESS':
-        return { ...state, loadingPay: false, successPay: true };
-      case 'PAY_FAIL':
-        return { ...state, loadingPay: false };
-      case 'PAY_RESET':
-        return { ...state, loadingPay: false, successPay: false };
+    case 'PAY_REQUEST':
+      return { ...state, loadingPay: true };
+    case 'PAY_SUCCESS':
+      return { ...state, loadingPay: false, successPay: true };
+    case 'PAY_FAIL':
+      return { ...state, loadingPay: false };
+    case 'PAY_RESET':
+      return { ...state, loadingPay: false, successPay: false };
+
+    case 'DELIVER_REQUEST':
+      return { ...state, loadingDeliver: true };
+    case 'DELIVER_SUCCESS':
+      return { ...state, loadingDeliver: false, successDeliver: true };
+    case 'DELIVER_FAIL':
+      return { ...state, loadingDeliver: false };
+    case 'DELIVER_RESET':
+      return {
+        ...state,
+        loadingDeliver: false,
+        successDeliver: false,
+      };
     default:
       return state;
   }
 }
-const  Order =() =>{
+export default function OrderScreen() {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
@@ -41,14 +56,24 @@ const  Order =() =>{
   const { id: orderId } = params;
   const navigate = useNavigate();
 
-  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
-    useReducer(reducer, {
-      loading: true,
-      order: {},
-      error: '',
-      successPay: false,
-      loadingPay: false,
-    });
+  const [
+    {
+      loading,
+      error,
+      order,
+      successPay,
+      loadingPay,
+      loadingDeliver,
+      successDeliver,
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    order: {},
+    error: '',
+    successPay: false,
+    loadingPay: false,
+  });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
@@ -77,7 +102,6 @@ const  Order =() =>{
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
-        
         dispatch({ type: 'PAY_SUCCESS', payload: data });
         toast.success('Order is paid');
       } catch (err) {
@@ -85,8 +109,7 @@ const  Order =() =>{
         toast.error(getError(err));
       }
     });
-  }  
- 
+  }
   function onError(err) {
     toast.error(getError(err));
   }
@@ -107,10 +130,18 @@ const  Order =() =>{
     if (!userInfo) {
       return navigate('/login');
     }
-    if (!order._id || successPay || (order._id && order._id !== orderId)) {
+    if (
+      !order._id ||
+      successPay ||
+      successDeliver ||
+      (order._id && order._id !== orderId)
+    ) {
       fetchOrder();
       if (successPay) {
         dispatch({ type: 'PAY_RESET' });
+      }
+      if (successDeliver) {
+        dispatch({ type: 'DELIVER_RESET' });
       }
     } else {
       const loadPaypalScript = async () => {
@@ -121,22 +152,48 @@ const  Order =() =>{
           type: 'resetOptions',
           value: {
             'client-id': clientId,
-            currency: 'TND',
+            currency: 'USD',
           },
         });
         paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
- 
+  }, [
+    order,
+    userInfo,
+    orderId,
+    navigate,
+    paypalDispatch,
+    successPay,
+    successDeliver,
+  ]);
+
+  async function deliverOrderHandler() {
+    try {
+      dispatch({ type: 'DELIVER_REQUEST' });
+      const { data } = await axios.put(
+        `/api/orders/${order._id}/deliver`,
+        {},
+        {
+          headers: { authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({ type: 'DELIVER_SUCCESS', payload: data });
+      toast.success('Order is delivered');
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: 'DELIVER_FAIL' });
+    }
+  }
+
   return loading ? (
-    <Loading></Loading>
+    <LoadingBox></LoadingBox>
   ) : error ? (
-    <ErrorMessege variant="danger">{error}</ErrorMessege>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
- 
+    
       <h1 className="my-3">Order {orderId}</h1>
       <Row>
         <Col md={8}>
@@ -147,14 +204,24 @@ const  Order =() =>{
                 <strong>Name:</strong> {order.shippingAddress.fullName} <br />
                 <strong>Address: </strong> {order.shippingAddress.address},
                 {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-                
+                ,{order.shippingAddress.country}
+                &nbsp;
+                {order.shippingAddress.location &&
+                  order.shippingAddress.location.lat && (
+                    <a
+                      target="_new"
+                      href={`https://maps.google.com?q=${order.shippingAddress.location.lat},${order.shippingAddress.location.lng}`}
+                    >
+                      Show On Map
+                    </a>
+                  )}
               </Card.Text>
               {order.isDelivered ? (
-                <ErrorMessege variant="success">
+                <MessageBox variant="success">
                   Delivered at {order.deliveredAt}
-                </ErrorMessege>
+                </MessageBox>
               ) : (
-                <ErrorMessege variant="danger">Not Delivered</ErrorMessege>
+                <MessageBox variant="danger">Not Delivered</MessageBox>
               )}
             </Card.Body>
           </Card>
@@ -165,11 +232,11 @@ const  Order =() =>{
                 <strong>Method:</strong> {order.paymentMethod}
               </Card.Text>
               {order.isPaid ? (
-                <ErrorMessege variant="success">
+                <MessageBox variant="success">
                   Paid at {order.paidAt}
-                </ErrorMessege>
+                </MessageBox>
               ) : (
-                <ErrorMessege variant="danger">Not Paid</ErrorMessege>
+                <MessageBox variant="danger">Not Paid</MessageBox>
               )}
             </Card.Body>
           </Card>
@@ -236,7 +303,7 @@ const  Order =() =>{
                 {!order.isPaid && (
                   <ListGroup.Item>
                     {isPending ? (
-                      <Loading />
+                      <LoadingBox />
                     ) : (
                       <div>
                         <PayPalButtons
@@ -246,7 +313,17 @@ const  Order =() =>{
                         ></PayPalButtons>
                       </div>
                     )}
-                    {loadingPay && <Loading></Loading>}
+                    {loadingPay && <LoadingBox></LoadingBox>}
+                  </ListGroup.Item>
+                )}
+                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                  <ListGroup.Item>
+                    {loadingDeliver && <LoadingBox></LoadingBox>}
+                    <div className="d-grid">
+                      <Button type="button" onClick={deliverOrderHandler}>
+                        Deliver Order
+                      </Button>
+                    </div>
                   </ListGroup.Item>
                 )}
               </ListGroup>
@@ -257,4 +334,3 @@ const  Order =() =>{
     </div>
   );
 }
-export default Order;

@@ -1,24 +1,24 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
+
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import { PayPalScriptProvider } from '@paypal/react-paypal-js';
-import App from './containers/App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
-import StoreProvider from './Store';
+import { StoreProvider } from './Store';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <StoreProvider>
-      <BrowserRouter>
+
         <PayPalScriptProvider deferLoading={true}>
           <App />
         </PayPalScriptProvider>
-      </BrowserRouter>
+     
     </StoreProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
