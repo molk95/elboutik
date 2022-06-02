@@ -11,11 +11,9 @@ import { StoreProvider } from './Store';
 ReactDOM.render(
   <React.StrictMode>
     <StoreProvider>
-
-        <PayPalScriptProvider deferLoading={true}>
-          <App />
-        </PayPalScriptProvider>
-     
+      <PayPalScriptProvider deferLoading={true}>
+        <App />
+      </PayPalScriptProvider>
     </StoreProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -34,7 +34,6 @@ import OrderList from './pages/order/OrderList';
 import UserList from './pages/user/UserList';
 import UserEdit from './pages/user/UserEdit';
 
-
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
@@ -105,7 +104,9 @@ function App() {
                         <NavDropdown.Item>Profil</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/orderhistory">
-                        <NavDropdown.Item>Historique des commandes</NavDropdown.Item>
+                        <NavDropdown.Item>
+                          Historique des commandes
+                        </NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <Link
@@ -113,12 +114,12 @@ function App() {
                         to="#signout"
                         onClick={signoutHandler}
                       >
-                      Se déconnecter
+                        Se déconnecter
                       </Link>
                     </NavDropdown>
                   ) : (
                     <Link className="nav-link" to="/signin">
-                    Bonjour, Identifiez-vous
+                      Bonjour, Identifiez-vous
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin && (
@@ -130,7 +131,7 @@ function App() {
                         <NavDropdown.Item>Produits</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/orders">
-                        <NavDropdown.Item>Ordres</NavDropdown.Item>
+                        <NavDropdown.Item>Commandes</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/users">
                         <NavDropdown.Item>Utilisateurs</NavDropdown.Item>
@@ -151,7 +152,7 @@ function App() {
         >
           <Nav className="flex-column text-white w-100 p-2">
             <Nav.Item>
-              <strong>Categories</strong>
+              <strong>Catégories</strong>
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
@@ -181,7 +182,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-            
+
               <Route path="/placeorder" element={<PlaceOrder />} />
               <Route
                 path="/order/:id"
@@ -199,13 +200,9 @@ function App() {
                   </ProtectedRoute>
                 }
               ></Route>
-              <Route
-                path="/shipping"
-                element={<ShippingAddress />}
-              ></Route>
+              <Route path="/shipping" element={<ShippingAddress />}></Route>
               <Route path="/payment" element={<PaymentMethod />}></Route>
-            
-              
+
               <Route
                 path="/admin/dashboard"
                 element={
@@ -260,11 +257,11 @@ function App() {
           </Container>
         </main>
         <footer>
-        <div className="text-center">
-          {' '}
-          &copy; All right reserved to Molk Saouabi
-        </div>
-      </footer>
+          <div className="text-center">
+            {' '}
+            &copy; All right reserved to Molk Saouabi
+          </div>
+        </footer>
       </div>
     </BrowserRouter>
   );

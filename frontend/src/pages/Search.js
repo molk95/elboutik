@@ -129,10 +129,9 @@ export default function SearchScreen() {
   };
   return (
     <div>
-  
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <h3>Département</h3>
           <div>
             <ul>
               <li>
@@ -156,14 +155,14 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Price</h3>
+            <h3>Prix</h3>
             <ul>
               <li>
                 <Link
                   className={'all' === price ? 'text-bold' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
-                  Any
+                  Tout
                 </Link>
               </li>
               {prices.map((p) => (
@@ -179,7 +178,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Moy. Avis</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -231,22 +230,22 @@ export default function SearchScreen() {
                   </div>
                 </Col>
                 <Col className="text-end">
-                  Sort by{' '}
+                  Trier par{' '}
                   <select
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
                     }}
                   >
-                    <option value="newest">Newest Arrivals</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="toprated">Avg. Customer Reviews</option>
+                    <option value="newest">Les plus récents arrivages</option>
+                    <option value="lowest">Prix ​​croissant</option>
+                    <option value="highest">Prix décroissant</option>
+                    <option value="toprated">Moy. Avis</option>
                   </select>
                 </Col>
               </Row>
               {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
+                <MessageBox>Aucun produit trouvé</MessageBox>
               )}
 
               <Row>

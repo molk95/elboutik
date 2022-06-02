@@ -39,12 +39,12 @@ export default function CartScreen() {
   return (
     <div>
 
-      <h1>Shopping Cart</h1>
+      <h1>Panier</h1>
       <Row>
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>
-              Cart is empty. <Link to="/">Go Shopping</Link>
+              Cart is empty. <Link to="/">Aller faire les courses</Link>
             </MessageBox>
           ) : (
             <ListGroup>
@@ -80,7 +80,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>${item.price}</Col>
+                    <Col md={3}>{item.price} DT</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -101,8 +101,8 @@ export default function CartScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <h3>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
+                  Total({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
+                  articles) : $
                     {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>
@@ -114,7 +114,7 @@ export default function CartScreen() {
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                     >
-                      Proceed to Checkout
+                    Passer à la caisse
                     </Button>
                   </div>
                 </ListGroup.Item>

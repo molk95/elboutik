@@ -43,11 +43,10 @@ export default function SigninScreen() {
 
   return (
     <Container className="small-container">
-  
-      <h1 className="my-3">Sign In</h1>
+      <h1 className="my-3">S'identifier </h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Adresse e-mail</Form.Label>
           <Form.Control
             type="email"
             required
@@ -63,11 +62,11 @@ export default function SigninScreen() {
           />
         </Form.Group>
         <div className="mb-3">
-          <Button type="submit">Sign In</Button>
+          <Button type="submit">Continuer</Button>
         </div>
         <div className="mb-3">
-          New customer?{' '}
-          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+          Nouveau chez élBoutik?{' '}
+          <Link to={`/signup?redirect=${redirect}`}>Créer votre compte</Link>
         </div>
       </Form>
     </Container>

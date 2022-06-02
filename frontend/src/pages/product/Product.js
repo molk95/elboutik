@@ -134,7 +134,6 @@ function ProductScreen() {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              
               <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
@@ -175,7 +174,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Prix:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>{product.price} DT</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -195,7 +194,7 @@ function ProductScreen() {
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
-                      Ajouter au panier
+                        Ajouter au panier
                       </Button>
                     </div>
                   </ListGroup.Item>
@@ -208,9 +207,7 @@ function ProductScreen() {
       <div className="my-3">
         <h2 ref={reviewsRef}>Avis</h2>
         <div className="mb-3">
-          {product.reviews.length === 0 && (
-            <MessageBox>Pas d'avis</MessageBox>
-          )}
+          {product.reviews.length === 0 && <MessageBox>Pas d'avis</MessageBox>}
         </div>
         <ListGroup>
           {product.reviews.map((review) => (
@@ -256,14 +253,14 @@ function ProductScreen() {
 
               <div className="mb-3">
                 <Button disabled={loadingCreateReview} type="submit">
-                  Submit
+                  Envoyer
                 </Button>
                 {loadingCreateReview && <LoadingBox></LoadingBox>}
               </div>
             </form>
           ) : (
             <MessageBox>
-            S'il vous plaît{' '}
+              S'il vous plaît{' '}
               <Link to={`/signin?redirect=/product/${product.slug}`}>
                 Sign In
               </Link>{' '}
