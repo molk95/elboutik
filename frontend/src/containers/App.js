@@ -98,7 +98,7 @@ function App() {
             <Route path="/payment" element={<PaymentMethod />} />{' '}
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path="/order/:id" element={<OrderScreen />} />
-            <Route path="/orderhistory" element={<OrderHistory />} />
+            <Route path="/orderhistory" element={<OrderHistory />} ></Route>
           </Routes>
         </Container>
       </main>
