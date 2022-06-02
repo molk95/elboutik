@@ -102,8 +102,8 @@ export default function CartScreen() {
                 <ListGroup.Item>
                   <h3>
                   Total({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                  articles) : $
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                  articles) : 
+                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)} DT
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
