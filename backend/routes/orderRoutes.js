@@ -33,7 +33,7 @@ orderRouter.post(
     });
 
     const order = await newOrder.save();
-    res.status(201).send({ message: 'New Order Created', order });
+    res.status(201).send({ message: 'Nouvelle commande créée', order });
   })
 );
 
@@ -98,7 +98,7 @@ orderRouter.get(
     if (order) {
       res.send(order);
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Commande introuvable' });
     }
   })
 );
@@ -114,7 +114,7 @@ orderRouter.put(
       await order.save();
       res.send({ message: 'Order Delivered' });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Commande introuvable' });
     }
   })
 );
@@ -156,9 +156,9 @@ orderRouter.put(
           }
         );
 
-      res.send({ message: 'Order Paid', order: updatedOrder });
+      res.send({ message: 'Commande payée', order: updatedOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Commande introuvable' });
     }
   })
 );
@@ -171,9 +171,9 @@ orderRouter.delete(
     const order = await Order.findById(req.params.id);
     if (order) {
       await order.remove();
-      res.send({ message: 'Order Deleted' });
+      res.send({ message: 'Commande supprimée' });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: 'Commande introuvable' });
     }
   })
 );
