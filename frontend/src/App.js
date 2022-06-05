@@ -132,7 +132,7 @@ function App() {
                     </NavDropdown>
                   )}
                   <Link to="/cart" className="nav-link">
-                  <i class="fa-regular fa-cart-shopping"></i>
+                  <i className="fas fa-shopping-cart"></i>
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
