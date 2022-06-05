@@ -44,7 +44,7 @@ export default function CartScreen() {
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>
-              Cart is empty. <Link to="/">Aller faire les courses</Link>
+            Le panier est vide. <Link to="/">Aller faire les courses</Link>
             </MessageBox>
           ) : (
             <ListGroup>
