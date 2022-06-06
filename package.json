@@ -1,0 +1,21 @@
+{
+  "name": "elboutik",
+  "version": "1.0.0",
+  "description": "Ecommerce Web Application inspired by amazon",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd backend && npm install  && cd ../frontend && npm install && npm run build",
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molk95/elboutik.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/molk95/elboutik/issues"
+  },
+  "homepage": "https://github.com/molk95/elboutik#readme"
+}

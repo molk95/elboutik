@@ -33,7 +33,7 @@ userRouter.get(
 userRouter.put(
   '/:id',
   isAuth,
-  isAdmin,
+
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -55,8 +55,8 @@ userRouter.delete(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
-      if (user.email === 'admin@example.com') {
-        res.status(400).send({ message: 'Can Not Delete Admin User' });
+      if (user.email === 'admin@elboutik.com') {
+        res.status(400).send({ message: 'On ne peut pas supprimé un admin' });
         return;
       }
       await user.remove();
