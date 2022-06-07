@@ -134,7 +134,7 @@ function ProductScreen() {
         <Col md={3}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h1>{product.name}</h1>
+              <h2>{product.name}</h2>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
